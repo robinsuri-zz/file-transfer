@@ -4,6 +4,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -12,11 +13,10 @@ public class Sftp {
   private static Session session;
 
   public static void main(String[] args) throws Exception {
-    JSch.setLogger(new JSCHLogger());
     LocalDateTime startLocal = LocalDateTime.now();
     System.out.println("start = " + startLocal.toString());
     long start = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-    uploadFiles(10);
+    uploadFiles(1000);
     LocalDateTime endLocal = LocalDateTime.now();
     System.out.println("end = " + endLocal.toString());
     long end = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
@@ -28,8 +28,8 @@ public class Sftp {
   private static void uploadFiles(int times) throws Exception {
     ChannelSftp channelSftp = getChannel();
     for (int i = 1; i <= times; i++) {
-      InputStream inputStream = new FileInputStream("/Users/robin.su/Documents/Checkout/file-transfer-java" +
-          "/src/main/resources/upload.pdf");
+      InputStream inputStream = new FileInputStream("/Users/robin.su/Documents/Checkout/" +
+          "jsch-sftp-test-connect-1/src/main/java/upload.pdf");
       Boolean isUploaded = uploadFile(inputStream, channelSftp);
       inputStream.close();
     }
@@ -39,14 +39,15 @@ public class Sftp {
   private static ChannelSftp getChannel() {
     ChannelSftp channelSftp = null;
     try {
-      String userName = "robinsu";
-      String host = "staging1-sg-1b.aws.zeta.in";
-      JSch jsch = new JSch();
+      String userName = "cisco_sftp";
+      String password = "xwsBjXNo72V2UxI5kOg";
+      String host = "10.42.1.192";
+      JSch jSch = new JSch();
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "no");
-      jsch.addIdentity("/Users/robin.su/Documents/Checkout/file-transfer-java/src/main/resources/id_rsa");
-      session = jsch.getSession(userName, host,22);
+      session = jSch.getSession(userName, host);
       session.setConfig(config);
+      session.setPassword(password);
       session.connect();
       channelSftp = (ChannelSftp) session.openChannel("sftp");
       channelSftp.connect();
@@ -60,9 +61,9 @@ public class Sftp {
   private static Boolean uploadFile(InputStream inputStream, ChannelSftp channelSftp) {
     try {
       String fileName = "test" + LocalDateTime.now().toString();
-      channelSftp.put(inputStream, "/home/robinsu/sftp/" + fileName);
+      channelSftp.put(inputStream, "/zetakycuat/" + fileName);
     } catch (SftpException e) {
-      e.printStackTrace();
+      System.out.println(e);
       return false;
     }
     return true;
