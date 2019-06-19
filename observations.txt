@@ -1,0 +1,37 @@
+Transferred 100 files of 1 MB each using Jsch library in Java
+average time taken = 46 seconds
+For 1000 files of 1 MB each
+average time taken = 7 min  30 seconds
+
+Tried using python
+the results were quite similar...
+probably could try increasing the files to 10K or more.
+
+IN PYTHON
+-----------------------
+100 FILE OF 1MB
+start = 2019-06-18 18:48:18.638752
+2019-06-18 18:49:01.498018
+
+1000 file of 1 MB
+~7 min
+-----------------------
+
+ways to transfer file -
+1) scp
+2) sftp
+3) rsync
+
+
+
+
+
+
+
+
+
+
+
+
+
+

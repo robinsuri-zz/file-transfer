@@ -1,0 +1,115 @@
+Prove that processing files using Java is slow ?
+
+1) Fetch lot of files and sftp it to staging sftp server....
+calculate the total time...
+
+2) We need to find out also what are the alternative ways to process files...
+may be use that rsync etc
+also here we are processing files sequentially
+
+
+3) Use some other language to perform the same operation....
+
+
+So first task is a setup in java to upload say 1000 files to an sftp server....
+And then use some other way to do it some other language etc...
+
+1) What are the states a Thread in java can be in ?
+
+It looks like the Session.connect() in Jsch library creates a new Thread and that keeps on running
+which causes the Main thread to continue and doesnt stop the program.
+session.disconnect() causes all the threads to stop.
+So Jsch internally creates threads...
+uploaded a file of 1 MB
+
+
+--------------------
+100. file of 1 MB
+--------------------
+start = 2019-06-18T17:47:18.517
+end = 2019-06-18T17:48:02.565
+Total time = approx 44 secs
+
+start = 2019-06-18T18:06:01.411
+end = 2019-06-18T18:06:47.561
+diff = 46
+
+start = 2019-06-18T18:07:09.716
+end = 2019-06-18T18:07:56.177
+diff = 47
+
+start = 2019-06-18T18:08:15.819
+end = 2019-06-18T18:09:08.511
+diff = 53
+
+start = 2019-06-18T18:10:33.795
+end = 2019-06-18T18:11:19.336
+diff = 46
+
+
+--------------------
+1000 file of 1 MB
+--------------------
+start = 2019-06-18T18:13:28.547
+end = 2019-06-18T18:21:17.427
+diff = 469
+
+start = 2019-06-18T18:28:25.788
+end = 2019-06-18T18:35:54.712
+diff = 449
+
+approx 450 seconds = 7 mins , 30 secs
+
+IN PYTHON
+-----------------------
+100 FILE OF 1MB
+start = 2019-06-18 18:48:18.638752
+2019-06-18 18:49:01.498018
+
+-----
+
+1000
+
+2019-06-18 18:55:46.401410
+2019-06-18 19:02:49.126029
+
+7 min 3 secs
+
+
+
+
+
+
+
+
+
+process files using rsync utility
+
+
+
+
+
+
+
+
+
+
+
+ways to transfer file -
+1) scp
+2) sftp
+3) rsync
+
+
+
+
+
+
+
+
+
+
+
+
+
+

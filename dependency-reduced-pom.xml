@@ -25,7 +25,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>Test</mainClass>
+                  <mainClass>Sftp</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -38,7 +38,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>Test</mainClass>
+              <mainClass>Sftp</mainClass>
             </manifest>
           </archive>
         </configuration>
