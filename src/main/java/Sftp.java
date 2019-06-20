@@ -3,6 +3,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -29,9 +30,10 @@ public class Sftp {
     ChannelSftp channelSftp = getChannel();
     for (int i = 1; i <= times; i++) {
       InputStream inputStream = new FileInputStream("/Users/robin.su/Documents/Checkout/" +
-          "jsch-sftp-test-connect-1/src/main/java/upload.pdf");
-      Boolean isUploaded = uploadFile(inputStream, channelSftp);
-      inputStream.close();
+          "largeFile-transfer-java/src/main/resources/upload.pdf");
+      BufferedInputStream bis = new BufferedInputStream(inputStream);
+      Boolean isUploaded = uploadFile(bis, channelSftp);
+      bis.close();
     }
 
   }

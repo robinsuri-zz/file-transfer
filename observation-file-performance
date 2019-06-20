@@ -1,0 +1,17 @@
+1) Buffered clases like Buffered Reader and Buffered InputStream uses an internal buffer to read say 1000 bytes at one go
+which results in efficient performance as seen in the above code.
+Otherwise each invocation of read() will cause bytes to be read from the file, converted into characters, and then returned,
+which can be very inefficient.
+
+
+Buffering is a basic and important technique for improving I/O.
+The read methods in buffer we can also specify the number of bytes to buffer.
+
+2) Setting the output stream to the standard output stream with buffering solves the println slow issue.
+Automatically println flushes things after encountering a newline now when we specify a buffer of say 1000 bytes
+it will write only after it has collected 1000 bytes.
+
+
+3) DataInputStream.readLine is obsolete. It doesnot properly convert bytes to characters.
+It is only fine for ASCII. But java uses Unicode character set not ASCII
+
